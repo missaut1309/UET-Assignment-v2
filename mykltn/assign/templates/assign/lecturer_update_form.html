@@ -1,0 +1,121 @@
+{% extends 'assign/base.html' %}
+
+{% block title %}Update Lecturer{% endblock title %}
+
+{% block content %}
+<div class"container" style="border: 5px solid #337ab7; padding-bottom: 20px;border-radius: 10px; width: 50%; margin-left: auto; margin-right: auto;;" >
+    <form method="post" action="{% url 'lecturer_update' %}">
+        {% csrf_token %}
+        <div></div>
+        <input type="hidden" id="lecturer_id" name="lecturer_id" value={{lecturer.id}}>
+        <h2 align="center" style="padding-bottom: 30px;">Chỉnh sửa thông tin giảng viên: </h2>
+        <table cellspacing="5px" cellpadding="5%" align="center">
+            <tr>
+                <td align="left"><label class="normal-form-label" for="lecturer_name" style="padding-bottom: 10px; ">Tên giảng viên: </td>
+                <td><input type="text" id="lecturer_name" name="lecturer_name" value="{{lecturer.name}}"></td>
+            </tr>
+        
+            <tr>
+                <td align="left"><label class="normal-form-label" for="work_place" style="padding-bottom: 10px;">Nơi công tác: </td>
+                <td>
+                    <select id="work_place" name="work_place">
+                        {% for wp in work_place_list %}
+                            {% if lecturer.work_place_id == wp.id %}
+                                <option value="{{wp.id}}" autofocus>{{wp}}</option>
+                            {% else %}
+                                <option value="{{wp.id}}">{{wp}}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td align="left"><label class="normal-form-label" for="department" style="padding-bottom: 10px;">Khoa: </td>
+                <td>
+                    <select id="department" name="department">
+                        
+                        <option value="{{department.id}}">{{department}}</option>
+                        
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td align="left"><label class="normal-form-label" for="degree" style="padding-bottom: 10px; ">Học hàm, học vị, bằng cấp: </td>
+                <td>
+                    <select id="degree" name="degree">
+                        {% for degree in degree_list %}
+                            {% if lecturer.degree_id == degree.id %}
+                                <option value="{{degree.id}}" autofocus>{{degree}}</option>
+                            {% else %}
+                                <option value="{{degree.id}}">{{degree}}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td align="left" style="width: 60%;" style="padding-bottom: 10px; ">Kinh nghiệm làm chủ tịch: </td>
+                <td> 
+                    {% if lecturer.chairman_exp == 0 %}
+                        <input type="radio" id="chairman_true" name="chairman_exp" value="0" checked>
+                        <label class="normal-form-label" for="chairman_true" >Chưa từng</label>
+                        <input type="radio" id="chairman_false" name="chairman_exp" value="1">
+                        <label class="normal-form-label" for="chairman_false">Đã từng</label>
+                    {% else %}
+                        <input type="radio" id="chairman_true" name="chairman_exp" value="0">
+                        <label class="normal-form-label" for="chairman_true" >Chưa từng</label>
+                        <input type="radio" id="chairman_false" name="chairman_exp" value="1" checked>
+                        <label class="normal-form-label" for="chairman_false">Đã từng</label>
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td align="left" style="width: 60%;" style="padding-bottom: 10px;">Kinh nghiệm làm thư ký: </td>
+                <td>
+                    {% if lecturer.secretary_exp == 0 %}
+                        <input type="radio" id="secretary_true" name="secretary_exp" value="0" checked>
+                        <label class="normal-form-label" for="secretary_true">Chưa từng</label>
+                        <input type="radio" id="secretary_false" name="secretary_exp" value="1">
+                        <label class="normal-form-label" for="secretary_false">Đã từng</label>
+                    {% else %}
+                        <input type="radio" id="secretary_true" name="secretary_exp" value="0" >
+                        <label class="normal-form-label" for="secretary_true">Chưa từng</label>
+                        <input type="radio" id="secretary_false" name="secretary_exp" value="1" checked>
+                        <label class="normal-form-label" for="secretary_false">Đã từng</label>
+                    {% endif %}
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="padding-bottom: 10px;padding-top: 10px;">
+                    <b>Danh sách các từ khóa</b>
+                </td>
+                <td></td>
+            </tr>
+            {% for keyword in keyword_list %}
+            <tr>
+                <td align="left" style="width: 60%;" style="padding-bottom: 10px;"> {{keyword}} </td>
+                <td>
+                    <input type="radio" id="{{keyword.id}}_1" name="keyword_{{keyword.id}}_level" value="{{keyword.id}}_1">
+                    <label class="normal-form-label" for="{{keyword.id}}_1">1</label>
+                    <input type="radio" id="{{keyword.id}}_2" name="keyword_{{keyword.id}}_level" value="{{keyword.id}}_2">
+                    <label class="normal-form-label" for="{{keyword.id}}_1">2</label>
+                    <input type="radio" id="{{keyword.id}}_3" name="keyword_{{keyword.id}}_level" value="{{keyword.id}}_3">
+                    <label class="normal-form-label" for="{{keyword.id}}_1">3</label>
+                    <input type="radio" id="{{keyword.id}}_4" name="keyword_{{keyword.id}}_level" value="{{keyword.id}}_4">
+                    <label class="normal-form-label" for="{{keyword.id}}_1">4</label>
+                    <input type="radio" id="{{keyword.id}}_5" name="keyword_{{keyword.id}}_level" value="{{keyword.id}}_5">
+                    <label class="normal-form-label" for="{{keyword.id}}_1">5</label>
+                </td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <td style="padding-top: 20px;">
+                    <input type="submit" value="Xác nhận" style="color: #337ab7">
+                </td>
+            </tr>
+        </table>
+        
+    </form>
+</div>
+{% endblock content %}

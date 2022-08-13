@@ -1,0 +1,27 @@
+.button {
+    border: none;
+    color: lightgray;
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+  }
+.button:hover {
+    color:#337ab7;
+}
+.button-active {
+    color: #337ab7;
+}
+.normal-form-label{
+    font-weight: normal !important;
+}
+
+.footer_container{
+    display:flex;
+    align-items: center;
+    padding: 10px 0;
+    border-top: solid 2px #337ab7;
+}

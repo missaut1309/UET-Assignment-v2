@@ -1,0 +1,77 @@
+{% extends 'assign/base.html' %}
+
+{% block title %}Create a topic{% endblock title %}
+
+{% block content %}
+<div class"container" style="border: 5px solid #337ab7; padding-bottom: 20px;border-radius: 10px; width: 50%; margin-left: auto; margin-right: auto;;" >
+    <form method="post" action="{% url 'create_topic' %}">
+        {% csrf_token %}
+        <div></div>
+        <h2 align="center" style="padding-bottom: 30px;">Đăng ký đề tài khóa luận tốt nghiệp: </h2>
+        <table cellspacing="5px" cellpadding="5%" align="center">
+            <tr>
+                <td align="left"><label class="normal-form-label" for="topic_name" style="padding-bottom: 10px;">Tên đề tài: </td>
+                <td><input type="text" id="topic_name" name="topic_name" placeholder="Nhập tên đề tài"></td>
+            </tr>
+            <tr>
+                <td align="left"><label class="normal-form-label" for="student_name" style="padding-bottom: 10px;">Tên sinh viên: </td>
+                <td><input type="text" id="student_name" name="student_name" placeholder="Nhập tên sinh viên"></td>
+            </tr>
+            <tr>
+                <td align="left"><label class="normal-form-label" for="student_id" style="padding-bottom: 10px;">Mã số sinh viên: </td>
+                <td><input type="text" id="student_id" name="student_id" placeholder=""></td>
+            </tr>
+            <tr>
+                <td align="left"><label class="normal-form-label" for="department" style="padding-bottom: 10px;">Khoa: </td>
+                <td>
+                    <select id="department" name="department">
+                        
+                        <option value="{{department.id}}">{{department}}</option>
+                        
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td align="left"><label class="normal-form-label" for="mentor" style="padding-bottom: 10px;">Giảng viên hướng dẫn: </td>
+                <td>
+                    <select id="mentor" name="mentor">
+                        {% for lec in lecturer_list %}
+                        <option value="{{lec.id}}">{{lec}}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="padding-bottom: 10px;padding-top: 10px;">
+                    <b>Danh sách các từ khóa</b>
+                </td>
+                <td></td>
+            </tr>
+            {% for keyword in keyword_list %}
+            <tr>
+                <td align="left" style="width: 60%;" style="padding-bottom: 10px;"> {{keyword}} </td>
+                <td>
+                    <input type="radio" id="{{keyword.id}}_1" name="keyword_{{keyword.id}}_level" value="{{keyword.id}}_1">
+                    <label class="normal-form-label" for="{{keyword.id}}_1">1</label>
+                    <input type="radio" id="{{keyword.id}}_2" name="keyword_{{keyword.id}}_level" value="{{keyword.id}}_2">
+                    <label class="normal-form-label" for="{{keyword.id}}_1">2</label>
+                    <input type="radio" id="{{keyword.id}}_3" name="keyword_{{keyword.id}}_level" value="{{keyword.id}}_3">
+                    <label class="normal-form-label" for="{{keyword.id}}_1">3</label>
+                    <input type="radio" id="{{keyword.id}}_4" name="keyword_{{keyword.id}}_level" value="{{keyword.id}}_4">
+                    <label class="normal-form-label" for="{{keyword.id}}_1">4</label>
+                    <input type="radio" id="{{keyword.id}}_5" name="keyword_{{keyword.id}}_level" value="{{keyword.id}}_5">
+                    <label class="normal-form-label" for="{{keyword.id}}_1">5</label>
+                </td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <td style="padding-top: 20px;">
+                    <input type="submit" value="Xác nhận" style="color: #337ab7">
+                </td>
+            </tr>
+        </table>
+        
+    </form>
+</div>
+{% endblock content %}

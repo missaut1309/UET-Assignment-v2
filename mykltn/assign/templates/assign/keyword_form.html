@@ -1,0 +1,34 @@
+{% extends 'assign/base.html' %}
+
+{% block title %}Create a lecturer{% endblock title %}
+
+{% block content %}
+    <form method="post" action="{% url 'keyword_create'  %}">
+        {% csrf_token %}
+        <div></div>
+        <h2 align="center" style="padding-bottom: 30px;">Thêm từ khóa: </h2>
+        <table cellspacing="5px" cellpadding="5%" align="center">
+            <tr>
+                <td align="left"><label class="normal-form-label" for="keyword_name" style="padding-bottom: 10px; ">Tên từ khóa: </td>
+                <td><input type="text" id="keyword_name_name" name="keyword_name" ></td>
+            </tr>
+            <tr>
+                <td align="left"><label class="normal-form-label" for="department" style="padding-bottom: 10px;">Khoa: </td>
+                <td>
+                    <select id="department" name="department">
+                        {% for department in department_list %}
+                        <option value="{{department.id}}">{{department}}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            
+            <tr>
+                <td style="padding-top: 20px;">
+                    <input type="submit" value="Xác nhận" style="color: #337ab7">
+                </td>
+            </tr>
+        </table>
+        
+    </form>
+{% endblock content %}

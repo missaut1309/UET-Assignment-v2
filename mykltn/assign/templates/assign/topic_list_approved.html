@@ -1,0 +1,31 @@
+{% extends 'assign/base.html' %}
+
+{% block title %}Topic List{% endblock title %}
+
+{% block content %}
+<button class="button "><a href="{% url 'topic_list_not_approve' %}">Chưa duyệt</a></button>
+<button class="button button-active"><a href="{% url 'topic_list_approved' %}"></a>Đã duyệt</button>
+<h1>Danh sách các đề tài</h1>
+<div class="row">
+    {% for topic in topic_list %}
+    <div>
+    <div class="col-sm-4" style="margin-bottom: 5px; margin-top: 5px;">
+        <div class="card" style="border: 1px solid black; border-radius: 8px; height: 100%;">
+            <div class="row" style="margin: auto;padding-inline: 5px; ">
+                <div class="card-block">
+                    <h4 class="card-title" style="width: 350px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                        <a href="{% url 'topic_update_form' topic.pk %}">{{topic}}</a>
+                    </h4>
+                    <h4 class="card-owner">{{topic.student}}<div><small> {{topic.mssv}}</small></div></h4> 
+                    <form action="{% url 'topic_unapprove' %}" method="POST" style="padding-bottom: 5px;">
+                        {% csrf_token %}
+                        <button type="submit" name="topic_id" value={{ topic.id }} class="btn btn-danger btn-sm" >Bỏ Duyệt</button>
+                    </form>                 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    {% endfor %}
+</div>
+{% endblock content %}

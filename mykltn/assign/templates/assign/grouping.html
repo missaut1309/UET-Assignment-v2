@@ -1,0 +1,76 @@
+{% extends 'assign/base.html' %}
+{% load static %}
+
+{% block css_file %}
+    <link rel="stylesheet" href="{% static 'css/test.css' %}" type="text/css">
+{% endblock css_file %}
+{% block js_file %}
+<script src="{%static 'js/test.js' %}"></script>
+{% endblock js_file %}
+
+
+{% block title %}Phân nhóm KLTN{% endblock title %}
+
+{% block content %}
+<button class="button "><a href="{% url 'grouping' %}">Phân nhóm các KLTN</a></button>
+
+<button class="button "><a href="{% url 'review_assign_form' %}">Phân công phản biện</a></button>
+<h2>Danh sách các nhóm: </h2>
+<div class="row">
+    <div class="container">        
+        {% for group in my_group_list %}
+        {% if group.topic_group.count >= 1 %}
+                <div class="container" style="padding-bottom: 30px;">
+                    <div class="card-group-tag col-sm-3">Nhóm {{group}}</div>
+                    <div class="col-sm-12 card-group-body" style="display: flex; border: 1px solid black; ">
+                        <div class="col-sm-6 card-group-body-left" style=" border-right: 1px solid black;">
+                            
+                            <div class="row card-group-topic" data-id="{{group.id}}">
+                                <div class="group-footer" style="height: 5px; width: 100%;"></div>
+                                {% for mem in group.topic_group.all %}
+                                    <div class="card-name-topic" data-id="{{mem.id}}" draggable="true" >  
+                                        {% csrf_token %}
+                                        {{mem}}
+                                    </div>
+                                {% endfor %}
+                                <div class="group-footer" style="height: 5px; width: 100%;"></div>
+                            </div>    
+                        </div>
+
+                        {% comment %} <div class="col-sm-6" >
+                            <div class="group-footer" style="height: 5px; width: 100%;"></div>
+                            {% for committee in group.committee_group.all %}
+                                {% for lecturer in committee.lecturer_committee.all %}
+                                    {% if lecturer.position.id == 1 %}
+                                    <div> {{lecturer}}</div>
+                                    {% endif %}
+                                    {% if lecturer.position.id == 2 %}
+                                    <div> {{lecturer}}</div>
+                                    {% endif %}
+                                    {% if lecturer.position.id == 3 %}
+                                    <div> {{lecturer}}</div>
+                                    {% endif %}
+                                    {% if lecturer.position.id == 4 %}
+                                    <div>  {{lecturer}}</div>
+                                    {% endif %}
+                                    {% if lecturer.position.id == 5 %}
+                                    <div> {{lecturer}}</div>
+                                    {% endif %}
+                                {% endfor %}
+                                
+                            {% endfor %} 
+                                
+                            <div class="group-footer" style="height: 5px; width: 100%;"></div>
+                        </div> {% endcomment %}
+                    </div>
+                </div>
+                {% endif %}
+        {% endfor %}
+        
+        <form method="post" id="change-submit" action="{% url 'change_test' %}">
+            {% csrf_token %}
+            <input type="submit" value="Xác nhận" style="color: #337ab7">
+        </form>
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,64 @@
+{% extends 'assign/base.html' %}
+{% load static %}
+
+{% block css_file %}
+    <link rel="stylesheet" href="{% static 'css/test.css' %}" type="text/css">
+{% endblock css_file %}
+{% block js_file %}
+<script src="{%static 'js/test.js' %}"></script>
+{% endblock js_file %}
+
+
+{% block title %}Phân nhóm KLTN{% endblock title %}
+
+{% block content %}
+<button class="button "><a href="{% url 'grouping' %}">Phân nhóm các KLTN</a></button>
+
+<button class="button "><a href="{% url 'review_assign_form' %}">Phân công phản biện</a></button>
+<h2>Danh sách các nhóm và giảng viên phản biện: </h2>
+<div class="row">
+    <div class="container">        
+        {% for topic in topic_list %}
+                <div class="container" style="padding-bottom: 30px;">
+                    
+                    <div class="col-sm-12 card-group-body" style="display: flex; border: 1px solid black; ">
+                        <div class="col-sm-6 card-group-body-left" style=" border-right: 1px solid black;">
+                            
+                            <div class="row card-group-topic" data-id="{{group.id}}">
+                                <div class="group-footer" style="height: 5px; width: 100%;"></div>
+                               
+                                    <div class="card-name-topic" data-id="{{topic.id}}" draggable="true" >  
+                                        {% csrf_token %}
+                                        {{topic}}
+                                    </div>
+                               
+                                <div class="group-footer" style="height: 5px; width: 100%;"></div>
+                            </div>    
+                        </div>
+
+                        <div class="col-sm-6" >
+                            <div class="group-footer" style="height: 5px; width: 100%;"></div>
+                            
+                            {% for lec in lecturer_list %} 
+                                {% if lec.id == topic.review_1_id %}
+                                    <div class="group-member" draggable="true" data-id="{{lec.id}}">{{lec}}</div>
+                                {% endif %}
+                                {% if lec.id == topic.review_2_id %}
+                                    <div class="group-member" draggable="true" data-id="{{lec.id}}">{{lec}}</div>
+                                {% endif %}
+                                   
+                            {% endfor %}
+                            {% for lec in topic.topic_review_2 %}  
+                                <div class="group-member" draggable="true" data-id="{{lec.id}}">{{lec}}</div>   
+                            {% endfor %}
+                                
+                            <div class="group-footer" style="height: 5px; width: 100%;"></div>
+                        </div>
+                    </div>
+                </div>
+        {% endfor %}
+        
+        
+    </div>
+</div>
+{% endblock content %}

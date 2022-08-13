@@ -1,0 +1,31 @@
+.card-group-tag{
+    width: 100px;
+    height: 30px;
+    border: 1px solid black;
+}
+
+
+
+.card-name-topic{
+    position: relative;
+    border: 1px solid black;
+    border-radius: 5px;
+    margin: 5px;
+    cursor: pointer;
+    background-color: #c0dbf4;
+}
+
+.group-member{
+    position: relative;
+    border: 1px solid black;
+    border-radius: 5px;
+    margin: 5px;
+    cursor: pointer;
+}
+.card-group-body {
+    background-color: #ffffff;
+}
+
+.group-member {
+    background-color: #c0dbf4;
+}

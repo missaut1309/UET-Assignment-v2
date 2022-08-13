@@ -1,0 +1,50 @@
+{% extends 'assign/base.html' %}
+{% load static %}
+
+{% block title %}Lecturer List{% endblock title %}
+
+{% block content %}
+<h1>Danh sách các giảng viên</h1>
+<button class="button" style="margin-bottom: 15px;"><a href="{% url 'lecturer_department_form' %}">Thêm giảng viên mới</a></button>
+<div class="row" >
+    {% for lecturer in lecturer_list %}
+    <div>
+    <div class="col-sm-4" style="margin-bottom: 5px; margin-top: 5px;">
+        <div class="card" style="border: 1px solid black; border-radius: 8px; height:100% ">
+            <div class="row" style="margin: auto;padding-inline: 5px;">
+                <div class="card-block">
+                    <div class="col-sm-4">
+                        <div class=" img-container">
+                            <img src="{% static 'image/default-avatar.jpg' %}" alt="avatar" height="60px" width="60px" style="margin-right:10px; margin-top:10px;"/ >
+                        </div>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="row">
+                            <h4>{{lecturer}}</h4>
+                            <h4><small><div class="card-detail">{{lecturer.work_place}}</div></small></h4>
+                            <form action="{% url 'lecturer_update_form' %}" method="POST" style="padding-bottom: 5px;">
+                                {% csrf_token %}
+                                <button type="submit" name="lecturer_id" value={{ lecturer.id }} class="btn btn-primary btn-sm">Sửa thông tin</button>
+                            </form>
+                            {% if lecturer.status == True %}
+                                <form action="{% url 'lecturer_unparticipate' %}" method="POST" style="padding-bottom: 5px;">
+                                    {% csrf_token %}
+                                    <button type="submit" name="lecturer_id" value={{ lecturer.id }} class="btn btn-warning btn-sm">Không tham gia</button>
+                                </form>
+                            {% else %}
+                                <form action="{% url 'lecturer_participate' %}" method="POST" style="padding-bottom: 5px;">
+                                    {% csrf_token %}
+                                    <button type="submit" name="lecturer_id" value={{ lecturer.id }} class="btn btn-success btn-sm">Tham gia</button>
+                                </form>
+                            {% endif %}
+                            
+                        </div>
+                    </div> 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    {% endfor %}
+</div>
+{% endblock content %}

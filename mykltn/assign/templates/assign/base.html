@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+   
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}" type="text/css">
+    {% block css_file %}{% endblock css_file %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <title>{% block title %}UET Assignment{% endblock %}</title>
+   
+   <style>
+    html, body{
+        height:90%;
+        #color: #337ab7;
+    }
+   </style>
+</head>
+
+<body>
+    
+    <header class="main-navbar">
+        <div id="container" class="default">
+            <nav class="navbar " style="box-shadow: 0 4px 4px 0 rgba(0,0,0,.1);" >
+                <div class="container" style="border-bottom: 2px solid ##337ab7;">
+                    <div class="collapse navbar-collapse">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="{% url 'index' %}">UET ASSIGNMENT</a>
+                    </div>
+                    {% if user.is_authenticated %}
+                    <ul class="nav navbar-nav">
+                        <li><a href="{% url 'topic_list_not_approve' %}">Khóa luận</a></li>
+                        <li><a href="{% url 'lecturer_list' %}">Giảng viên</a></li>
+                        <li class="active"><a href="{% url 'assign_choose' %}">Phân công</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <ul class="nav navbar-nav navbar-right" style="margin-top: 6px">
+                            <li >
+                                <img class="account-picture" src="{% static 'image/avatar.jpg' %}" alt="account avatar" height="45px" width="45px" style="margin-right:10px; border-radius: 50%;" />
+                            </li>
+                            <li> {{ user.username }} <button style="margin-left: 5px;" type="button" class =  "btn btn-sm btn-primary" > <a style=" color: aliceblue;" href="{% url 'logout' %}">Log out </a></button> </li>
+                        </ul>   
+                    </ul>
+                    {% else %}
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="{% url 'login' %}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                    </ul>
+                    {% endif %}
+                    </div>
+                </div>
+            </nav>        
+        </div>
+    </header>
+
+    <div class="container-fluid" style="min-height: 95%;">
+        <div class="container">
+    
+            {% block content %}
+            {% if user.is_authenticated %}
+                <h2 align="center"> Xin chào quản trị viên {{user.username}}!</h2>
+                <h4 align="center"> Chào mừng bạn đã đến với hệ thống hỗ trợ phân công chấm khóa luận tốt nghiệp trường Đại học Công nghệ (UET)!</h4>
+                <div align="center">
+                    <img src="{% static 'image/dai-hoc-cong-nghe.jpg' %}" height="320px"/>               
+                </div>
+                <div style="margin-top: 15px;" align="center">
+                    
+                    <button class="button"><a href="{% url 'topic_list_not_approve' %}">Quản lý khóa luận</a></button>
+                    <button class="button"><a href="{% url 'lecturer_list' %}">Quản lý giảng viên</a></button>
+                    <button class="button"><a href="{% url 'assign_choose' %}">Phân công</a></button>
+                    <button class="button"><a href="{% url 'keyword_form' %}">Thêm từ khóa</a></button>
+                </div>
+            {% else %}
+            <h2 align="center">Chào mừng đến với hệ thống hỗ trợ phân công chấm khóa luận tốt nghiệp trường Đại học Công nghệ</h2>
+            <div align="center">
+                <img src="{% static 'image/dai-hoc-cong-nghe.jpg' %}" height="320px"/>               
+            </div>
+            <button class="button" style="margin-top: 20px;"><a href="{% url 'topic_department_form' %}">Đăng ký khóa luận tốt nghiệp tại đây </a></button>
+            {% endif %}
+            {% endblock content %}
+        </div>
+    </div>
+    {% block footer %}
+    <div style="height: 25px;box-shadow: 0 4px 4px 0 rgba(0,0,0,.1);"></div>
+    
+    <footer style="margin-top: 20px;">
+        <div class="container">
+            <div class="footer_element_2">
+                <div style="color: #337ab7">THÔNG TIN LIÊN HỆ</div>
+                <nav>
+                    <ul class="col-sm-6">
+                        <li><i class="glyphicon glyphicon-home" style="margin-right: 5px;"></i>  E3, 144 Xuân Thủy, Cầu Giấy, Hà Nội</li>
+                        <li><i class="glyphicon glyphicon-envelope" style="margin-right: 5px;"></i>  uet@vnu.edu.vn</li>
+                       
+                    </ul>
+                    <ul class="col-sm-6">
+                       
+                        <li><i class="glyphicon glyphicon-phone-alt" style="margin-right: 5px;"></i>  024.37547.461, 024.37547.460</li>
+                        <li><i class="glyphicon glyphicon-globe" style="margin-right: 5px;" ></i>  https://uet.vnu.edu.vn/</li>
+                    </ul>
+                </nav>
+            </div>
+    </footer>
+    {% endblock footer %}
+
+    {% block js_file %}{% endblock js_file %}
+</body>
+</html>

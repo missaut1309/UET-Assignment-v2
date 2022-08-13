@@ -1,0 +1,11 @@
+{% extends 'assign/base.html' %}
+
+{% block title %}Assign choose{% endblock title %}
+
+{% block content %}
+<h2> Bạn muốn thực hiện :</h2>
+<div><button class="button "><a href="{% url 'grouping' %}">Phân nhóm các KLTN</a></button></div>
+
+<div><button class="button "><a href="{% url 'review_assign_form' %}">Phân công phản biện</a></button></div>
+
+{% endblock content %}

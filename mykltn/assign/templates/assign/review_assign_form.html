@@ -1,0 +1,30 @@
+{% extends 'assign/base.html' %}
+{% load static %}
+
+{% block css_file %}
+    <link rel="stylesheet" href="{% static 'css/test.css' %}" type="text/css">
+{% endblock css_file %}
+{% block js_file %}
+<script src="{%static 'js/test.js' %}"></script>
+{% endblock js_file %}
+
+
+{% block title %}Phân nhóm KLTN{% endblock title %}
+
+{% block content %}
+<button class="button "><a href="{% url 'grouping' %}">Phân nhóm các KLTN</a></button>
+
+<button class="button "><a href="{% url 'topic_list_approved' %}">Phân công phản biện</a></button>
+
+<div class="row">
+    <div class="container">        
+        <div style="height: 50px;"></div>
+        <form method="post" id="change-submit" action="{% url 'review_assign' %}">
+            {% csrf_token %}
+            <label for="k_max" style="padding-bottom: 10px;"> Số KLTN tối đa/giảng viên:</label>
+            <input type="text" id="k_max" name="k_max" value="3"/>
+            <input type="submit" value="Xác nhận" style="color: #337ab7">
+        </form>
+    </div>
+</div>
+{% endblock content %}
